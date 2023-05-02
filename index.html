@@ -1,288 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Two Red Buttons</title>
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet" />
-    <style>
-        html,
-        body {
-            height: 100%;
-            margin: 0;
-            font-family: "Open Sans", sans-serif;
-        }
-
-        body {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100%;
-            position: relative;
-        }
-
-        img {
-            width: auto;
-            height: 30%;
-            max-height: 600px;
-            min-height: 300px;
-            display: none;
-            opacity: 0;
-        }
-
-        button {
-            font-weight: bold;
-            font-size: 2vw;
-            padding: 1vw 2vw;
-            border: none;
-            border-radius: 4px;
-            background-color: #ed1c24;
-            color: #ffffff;
-            margin: 5px;
-            cursor: pointer;
-            display: none;
-            opacity: 0;
-        }
-
-        button:hover {
-            background-color:#ab2227;
-        }
-
-        .animated-text,
-        .innovation-text {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3em;
-            color: #808080;
-        }
-
-        .innovation-text {
-            display: none;
-        }
-
-        .innovation-text .red {
-            font-size: 1.2em;
-            animation-name: scaleBounce;
-        }
-
-        .animated-text span,
-        .innovation-text span {
-            animation-duration: 1s;
-            animation-fill-mode: both;
-            opacity: 0;
-        }
-
-        .heart,
-        .red {
-            color: #ed1c24;
-            animation-name: scaleBounce;
-        }
-
-        @media only screen and (max-width: 600px) {
-            .animated-text,
-            .innovation-text {
-                font-size: 1.5em;
-            }
-
-            button {
-                font-size: 4vw;
-                padding: 2vw 4vw;
-            }
-
-            img {
-                height: 20%;
-                min-height: 200px;
-            }
-        }
-
-
-
-        .innovation-text {
-            display: none;
-        }
-
-        .innovation-text .red {
-            font-size: 1.2em;
-            animation-name: scaleBounce;
-        }
-
-        .animated-text span,
-        .innovation-text span {
-            animation-duration: 1s;
-            animation-fill-mode: both;
-            opacity: 0;
-        }
-
-        .heart,
-        .red {
-            color: #ed1c24;
-            animation-name: scaleBounce;
-        }
-
-        @keyframes fadeInUp {
-            0% {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes fadeOutUp {
-            0% {
-                opacity: 1;
-                transform: translateY(0);
-            }
-
-            100% {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-        }
-
-        @keyframes fadeIn {
-            0% {
-                opacity: 0;
-            }
-
-            100% {
-                opacity: 1;
-            }
-        }
-
-        @keyframes scaleBounce {
-            0%,
-            100% {
-                opacity: 0;
-                transform: scale(0.5);
-            }
-
-            75% {
-                opacity: 1;
-                transform: scale(1.1);
-            }
-
-            90% {
-                transform: scale(0.95);
-            }
-
-            100% {
-                opacity: 1;
-                transform: scale(1);
-            }
-        }
-
-        .animated-text span:nth-child(1) {
-            animation-name: fadeInUp;
-            animation-delay: 1s;
-        }
-
-        .animated-text span:nth-child(2) {
-            animation-name: fadeInUp;
-            animation-delay: 1.2s;
-        }
-
-        .heart {
-            animation-delay: 1.4s;
-        }
-
-        .animated-text span:nth-child(4) {
-            animation-name: fadeInUp;
-            animation-delay: 1.6s;
-        }
-
-        .animated-text span:nth-child(5) {
-            animation-name: fadeInUp;
-            animation-delay: 2s;
-        }
-
-        .animated-text span:nth-child(6) {
-            animation-name: fadeInUp;
-            animation-delay: 2.4s;
-        }
-
-        .innovation-text span:nth-child(1) {
-            animation-name: scaleBounce;
-            animation-delay: 0s;
-        }
-
-        .innovation-text span:nth-child(2) {
-            animation-name: fadeInUp;
-            animation-delay: 0.2s;
-        }
-        .innovation-text span:nth-child(3) {
-            animation-name: fadeInUp;
-            animation-delay: 0.4s;
-        }
-
-
-        .innovation-text span:nth-child(4) {
-            animation-name: fadeInUp;
-            animation-delay: 0.6s;
-        }
-
-        .innovation-text span:nth-child(5) {
-            animation-name: fadeInUp;
-            animation-delay: 0.8s;
-        }
-
-        .innovation-text span:nth-child(6) {
-            animation-name: fadeInUp;
-            animation-delay: 1s;
-        }
-    </style>
+    <title>Esprit</title>
+    <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+    <script src="https://raw.githack.com/donmccurdy/aframe-extras/master/dist/aframe-extras.loaders.min.js"></script>
+    <script
+        src="https://raw.githack.com/AR-js-org/studio-backend/master/src/modules/marker/tools/gesture-detector.js"></script>
+    <script
+        src="https://raw.githack.com/AR-js-org/studio-backend/master/src/modules/marker/tools/gesture-handler.js"></script>
+    
 </head>
-<body>
-<img src="logo.png" alt="Logo" />
-<div>
-    <button onclick="location.href='ar_page.html'">AR</button>
-    <button onclick="location.href='showcase_page.html'">Showcase</button>
-</div>
-<div class="animated-text">
-    <span>Made</span>&nbsp; <span>with</span>&nbsp; <span class="heart">❤</span>&nbsp; <span>by</span>&nbsp; <span><b>ESPRIT</b></span>&nbsp;
-    <span>students</span>
-</div>
-<div class="innovation-text">
-    <span class="red"><b>20</b></span>&nbsp; <span>years</span>&nbsp; <span>of</span>&nbsp;
-    <span>innovation</span>&nbsp;<span>🚀</span>
-</div>
 
-<script>
-    const animatedText = document.querySelector(".animated-text");
-    const innovationText = document.querySelector(".innovation-text");
-    const buttons = document.querySelectorAll("button");
-    const logo = document.querySelector("img");
 
-    setTimeout(() => {
-        animatedText.style.animation = "fadeOutUp 1s ease-in-out forwards";
-    }, 3000);
 
-    setTimeout(() => {
-        animatedText.style.display = "none";
-        innovationText.style.display = "flex";
-        innovationText.querySelectorAll("span").forEach((span) => {
-            span.style.animationPlayState = "running";
-        });
-    }, 4000);
+<head>
 
-    setTimeout(() => {
-        innovationText.style.animation = "fadeOutUp 1s ease-in-out forwards";
-    }, 7000);
+</head>
 
-    setTimeout(() => {
-        innovationText.style.display = "none";
-        buttons.forEach((button) => {
-            button.style.display = "inline";
-            button.style.animation = "fadeIn 1s ease-in-out forwards";
-        });
-        logo.style.display = "inline";
-        logo.style.animation = "fadeIn 1s ease-in-out forwards";
-    }, 8000);
-</script>
+<body style="margin: 0; overflow: hidden;">
+    <a-scene vr-mode-ui="enabled: false;" loading-screen="enabled: false;" renderer="logarithmicDepthBuffer: true;"
+        arjs="trackingMethod: best; sourceType: webcam; debugUIEnabled: false;" id="scene" embedded gesture-detector>
+        <a-assets>
+            <a-asset-item id="animated-asset" src="assets/asset.glb"></a-asset-item>
+        </a-assets>
+
+        <a-marker id="animated-marker" type="pattern" preset="custom" url="assets/marker.patt"
+            raycaster="objects: .clickable" emitevents="true" cursor="fuse: false; rayOrigin: mouse;" id="markerA">
+            <a-entity id="bowser-model" scale="1 1 1" rotation="0 -90 0" animation-mixer="loop: repeat"
+                gltf-model="#animated-asset" class="clickable" gesture-handler></a-entity>
+        </a-marker>
+
+        <a-entity camera></a-entity>
+    </a-scene>
 </body>
+
 </html>
