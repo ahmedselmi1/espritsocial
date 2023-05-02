@@ -1,10 +1,9 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8" />
-
+    
     <title>Esprit</title>
     <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
     <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
@@ -13,42 +12,251 @@
         src="https://raw.githack.com/AR-js-org/studio-backend/master/src/modules/marker/tools/gesture-detector.js"></script>
     <script
         src="https://raw.githack.com/AR-js-org/studio-backend/master/src/modules/marker/tools/gesture-handler.js"></script>
-    
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet" />
+    <style>
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            font-family: "Open Sans", sans-serif;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            position: relative;
+        }
+
+        img {
+            width: auto;
+            height: 30%;
+            max-height: 600px;
+            min-height: 300px;
+            display: none;
+            opacity: 0;
+        }
+
+        button {
+            font-weight: bold;
+            font-size: 5vmin;
+            padding: 1vw 2vw;
+            border: none;
+            border-radius: 4px;
+            background-color: #ed1c24;
+            color: #ffffff;
+            margin: 5px;
+            cursor: pointer;
+            border-radius: 20px;
+        }
+
+        button:hover {
+            background-color: #ab2227;
+        }
+
+        .animated-text,
+        .innovation-text {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5vw;
+            color: #808080;
+            z-index: 10;
+        }
+
+        .innovation-text {
+            display: none;
+        }
+
+        .innovation-text .red {
+            font-size: 5vw;
+            animation-name: scaleBounce;
+        }
+
+        .animated-text span,
+        .innovation-text span {
+            animation-duration: 1s;
+            animation-fill-mode: both;
+            opacity: 0;
+        }
+
+        .heart,
+        .red {
+            color: #ed1c24;
+            animation-name: scaleBounce;
+        }
+
+        
+
+
+
+        .innovation-text {
+            display: none;
+        }
+
+        .innovation-text .red {
+            font-size: 1.2em;
+            animation-name: scaleBounce;
+        }
+
+        .animated-text span,
+        .innovation-text span {
+            animation-duration: 1s;
+            animation-fill-mode: both;
+            opacity: 0;
+        }
+
+        .heart,
+        .red {
+            color: #ed1c24;
+            animation-name: scaleBounce;
+        }
+
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeOutUp {
+            0% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+            100% {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+
+        @keyframes scaleBounce {
+
+            0%,
+            100% {
+                opacity: 0;
+                transform: scale(0.5);
+            }
+
+            75% {
+                opacity: 1;
+                transform: scale(1.1);
+            }
+
+            90% {
+                transform: scale(0.95);
+            }
+
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .animated-text span:nth-child(1) {
+            animation-name: fadeInUp;
+            animation-delay: 1s;
+        }
+
+        .animated-text span:nth-child(2) {
+            animation-name: fadeInUp;
+            animation-delay: 1.2s;
+        }
+
+        .heart {
+            animation-delay: 1.4s;
+        }
+
+        .animated-text span:nth-child(4) {
+            animation-name: fadeInUp;
+            animation-delay: 1.6s;
+        }
+
+        .animated-text span:nth-child(5) {
+            animation-name: fadeInUp;
+            animation-delay: 2s;
+        }
+
+        .animated-text span:nth-child(6) {
+            animation-name: fadeInUp;
+            animation-delay: 2.4s;
+        }
+
+        .innovation-text span:nth-child(1) {
+            animation-name: scaleBounce;
+            animation-delay: 0s;
+        }
+
+        .innovation-text span:nth-child(2) {
+            animation-name: fadeInUp;
+            animation-delay: 0.2s;
+        }
+
+        .innovation-text span:nth-child(3) {
+            animation-name: fadeInUp;
+            animation-delay: 0.4s;
+        }
+
+
+        .innovation-text span:nth-child(4) {
+            animation-name: fadeInUp;
+            animation-delay: 0.6s;
+        }
+
+        .innovation-text span:nth-child(5) {
+            animation-name: fadeInUp;
+            animation-delay: 0.8s;
+        }
+
+        .innovation-text span:nth-child(6) {
+            animation-name: fadeInUp;
+            animation-delay: 1s;
+        }
+    </style>
 </head>
 
-
-
-<body style="margin: 0; overflow: hidden;">
-	<script>
-		AFRAME.registerComponent('unlit', {
-
-		init: function () {
-
-			function recursivelySetChildrenUnlit(mesh) {
-
-				if (mesh.material && mesh.material.map) {
-					mesh.material = new THREE.MeshBasicMaterial({ map: mesh.material.map });
-				}
-
-				if (mesh.children) {
-					for (var i = 0; i < mesh.children.length; i++) {
-						recursivelySetChildrenUnlit(mesh.children[i]);
-					}
-				}
-			}
-
-			this.el.addEventListener('model-loaded', (e) => {
-
-				const mesh = e.target.getObject3D('mesh');
-				for (var i = 0; i < mesh.children.length; i++) {
-					recursivelySetChildrenUnlit(mesh.children[i]);
-				}
-
-			});
-		}
-	});
-
-		</script>
+<body style="margin: 0; overflow: hidden; height:100%;">
+    <img src="logo.png" alt="Logo" />
+    
+    <div class="animated-text">
+        <span>Made</span>&nbsp; <span>with</span>&nbsp; <span class="heart">❤</span>&nbsp; <span>by</span>&nbsp;
+        <span><b>ESPRIT</b></span>&nbsp;
+        <span>students</span>
+    </div>
+    <div class="innovation-text">
+        <span class="red"><b>20</b></span>&nbsp; <span>years</span>&nbsp; <span>of</span>&nbsp;
+        <span>innovation</span>&nbsp;<span>🚀</span>
+    </div>
+    
+    <div style="z-index: 5; position:absolute; width:100%; height:100%;">
+        <div class="white-bg" style="z-index: 5; width:100%; height:100%; background-color:white;">
+            
+        </div>
+        <div style="position:sticky; bottom:0px; height:10%; width:100%; z-index: -1; background-color: white;  text-align: center;">
+            <button style="width:40vw; height:80%; margin-right:7vw;" onclick="location.href='ar_page.html'">AR</button>
+            <button style="width:40vw; height:80%" onclick="location.href='showcase_page.html'">Showcase</button>
+        </div>
+    </div>
+    
+    
     <a-scene vr-mode-ui="enabled: false;" loading-screen="enabled: false;" renderer="logarithmicDepthBuffer: true; antialias: true; colorManagement: true; sortObjects: true; physicallyCorrectLights: true; maxCanvasWidth: 1920; maxCanvasHeight: 1920;"
         arjs="trackingMethod: best; sourceType: webcam; debugUIEnabled: false;" id="scene" embedded gesture-detector>
         <a-assets>
@@ -63,7 +271,49 @@
 
         <a-entity camera></a-entity>
     </a-scene>
+    
+    <script>
+        const animatedText = document.querySelector(".animated-text");
+        const innovationText = document.querySelector(".innovation-text");
+        const whitebg = document.querySelector(".white-bg");
+        const buttons = document.querySelectorAll("button");
+        const logo = document.querySelector("img");
 
+        setTimeout(() => {
+            animatedText.style.animation = "fadeOutUp 1s ease-in-out forwards";
+        }, 3000);
+
+        setTimeout(() => {
+            animatedText.style.display = "none";
+            innovationText.style.display = "flex";
+            innovationText.querySelectorAll("span").forEach((span) => {
+                span.style.animationPlayState = "running";
+            });
+        }, 4000);
+
+        setTimeout(() => {
+            innovationText.style.animation = "fadeOutUp 1s ease-in-out forwards";
+        }, 7000);
+
+        setTimeout(() => {
+            innovationText.style.display = "none";
+            whitebg.style.animation = "fadeOutUp 1s ease-in-out forwards";
+
+            /*buttons.forEach((button) => {
+                button.style.display = "inline";
+                button.style.animation = "fadeIn 1s ease-in-out forwards";
+            });*/
+            //logo.style.display = "inline";
+            //logo.style.animation = "fadeIn 1s ease-in-out forwards";
+        }, 8000);
+    </script>
 </body>
 
 </html>
+
+
+
+
+
+
+
