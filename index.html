@@ -33,15 +33,6 @@
             height: 100%;
         }
 
-        img {
-            width: auto;
-            height: 30%;
-            max-height: 600px;
-            min-height: 300px;
-            display: none;
-            opacity: 0;
-        }
-
         button {
             font-weight: bold;
             font-size: 5vmin;
@@ -106,7 +97,8 @@
         }
 
         .animated-text span,
-        .innovation-text span {
+        .innovation-text span,
+        img {
             animation-duration: 1s;
             animation-fill-mode: both;
             opacity: 0;
@@ -235,6 +227,13 @@
             animation-delay: 1s;
         }
 
+        
+
+        img {
+            animation-name: fadeInUp;
+            animation-delay: 1s;
+        }
+
         * {
             user-select: none;
             transition: 0.5s;
@@ -344,18 +343,19 @@
 </head>
 
 <body style="margin: 0; overflow: hidden; height:100%;">
-    <img src="logo.png" alt="Logo" />
+    <img src="logo.png" style="position:absolute; z-index: 5; height:50px; width:50px; top:20px; left:20px;" alt="Logo" />
     
     <div class="animated-text">
         <span>Made</span>&nbsp; <span>with</span>&nbsp; <span class="heart">❤</span>&nbsp; <span>by</span>&nbsp;
         <span><b>ESPRIT</b></span>&nbsp;
         <span>students</span>
+        
     </div>
     <div class="innovation-text">
         <span class="red"><b>10</b></span>&nbsp; <span>years</span>&nbsp; <span>of</span>&nbsp;
-        <span>innovation</span>&nbsp;<span>🎈</span>
+        <span>innovation</span>&nbsp;<span>🎈</span></br>
+        
     </div>
-    
     <div style="z-index: 5; position:absolute; width:100%; height:100%;">
         <div class="white-bg" style="pointer-events: none; z-index: 5; width:100%; height:100%; background-color: white;">
             
@@ -392,12 +392,15 @@
             Image source: http://www.ghibli.jp/works/kazetachinu/#frame&gid=1&pid=1
             Image author: Studio Ghibli
             -->
-            <img id="pic1" src="assets/img/pic1.png" crossorigin="anonymous"/>
-            <img id="pic2" src="assets/img/pic2.png" crossorigin="anonymous"/>
-            <img id="pic3" src="assets/img/pic3.png" crossorigin="anonymous"/>
-            <img id="pic4" src="assets/img/pic4.png" crossorigin="anonymous"/>
-            <img id="pic5" src="assets/img/pic5.png" crossorigin="anonymous"/>
+            <img id="pic1" src="assets/img/pic1.jpg" crossorigin="anonymous"/>
+            <img id="pic2" src="assets/img/pic2.jpg" crossorigin="anonymous"/>
+            <img id="pic3" src="assets/img/pic3.jpg" crossorigin="anonymous"/>
+            <img id="pic4" src="assets/img/pic4.jpg" crossorigin="anonymous"/>
+            <img id="pic5" src="assets/img/pic5.jpg" crossorigin="anonymous"/>
             <img id="pic6" src="assets/img/pic6.jpg" crossorigin="anonymous"/>
+            <img id="pic6" src="assets/img/pic7.jpg" crossorigin="anonymous"/>
+            <img id="pic6" src="assets/img/pic8.jpg" crossorigin="anonymous"/>
+            <img id="pic6" src="assets/img/pic9.jpg" crossorigin="anonymous"/>
             <img id="kazetachinuPoster" src="https://cdn.aframe.io/examples/ui/kazetachinuPoster.jpg" crossorigin="anonymous"/>
             <!--
             Image source: http://www.ghibli.jp/works/ponyo/#frame&gid=1&pid=36
