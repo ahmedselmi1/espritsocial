@@ -7,6 +7,7 @@
 
     <title>Esprit</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+	<script src="https://bobboteck.github.io/joy/joy.js"></script>
 
     <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
     <script src="https://jeromeetienne.github.io/AR.js/aframe/build/aframe-ar.js"></script>
@@ -23,6 +24,9 @@
             height: 100%;
             margin: 0;
             font-family: "Open Sans", sans-serif;
+			-webkit-user-select: none; /* Safari */
+			-ms-user-select: none; /* IE 10 and IE 11 */
+			user-select: none; /* Standard syntax */
         }
 
         body {
@@ -345,6 +349,14 @@
 	
     
     
+	<div id="joyDiv" style="position:absolute; z-index: 20; height:60px; width:60px; bottom:20px; right:20px;"></div>
+
+    <div class="controls" style="position:absolute; z-index: 5; height:50px; top:20px; right:20px;">
+                <button id="button">Get camera</button>
+                <select id="select">
+                    <option></option>
+                  </select>
+            </div>
     <div class="animated-text">
         <span>Made</span>&nbsp; <span>with</span>&nbsp; <span class="heart">❤</span>&nbsp; <span>by</span>&nbsp;
         <span><b>ESPRIT</b></span>&nbsp;
@@ -384,7 +396,7 @@
             </div>
             </label>
 			
-
+			
 
         </div>
 		<br>
@@ -519,7 +531,17 @@
 
     <script>
 
-        
+		var joy = new JoyStick('joyDiv');
+		window.cPos = {x:0,z:0};
+		setInterval(function(){ 
+			
+			window.cPos.x += joy.GetX()/10000;
+			window.cPos.z += joy.GetY()/10000;
+			window.cPos.x = Math.min(3,Math.abs(window.cPos.x))*Math.sign(window.cPos.x);
+			window.cPos.z = Math.min(3,Math.abs(window.cPos.z))*Math.sign(window.cPos.z);
+			var model = document.querySelector("#bowser-model");
+            model.setAttribute("position", {x:window.cPos.x,y:0,z:window.cPos.z});
+		}, 50);
         
         window.picsVisible = true;
         window.animPlaying = true;
@@ -536,6 +558,11 @@
 AFRAME.registerComponent('tex-swap',
     {
     init: function() {
+
+
+		
+
+
       //const {src} = document.getElementById('imageFile')
       const loader = new THREE.TextureLoader()
       var self = this;
