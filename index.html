@@ -632,7 +632,7 @@ AFRAME.registerComponent('tex-swap',
 
 
 
-        const video = document.getElementById('scene');
+        const video = document.getElementById('arjs-video');
         const button = document.getElementById('button');
         const select = document.getElementById('select');
         let currentStream;
@@ -678,12 +678,12 @@ AFRAME.registerComponent('tex-swap',
 			.then((stream) => {
 			  currentStream = stream;
 
-			  document.getElementById('scene').srcObject = stream;
+			  document.getElementById('arjs-video').srcObject = stream;
 			  var event = new CustomEvent("camera-init", { stream: stream });
 			  window.dispatchEvent(event);
 
 			  document.body.addEventListener("click", function () {
-				  document.getElementById('scene').play();
+				  document.getElementById('arjs-video').play();
 				});
 			  return navigator.mediaDevices.enumerateDevices();
 			})
