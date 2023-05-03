@@ -3,15 +3,19 @@
 
 <head>
     <meta charset="UTF-8" />
-    
+    <meta name = "viewport" content = "width=device-width, minimum-scale=1.0, maximum-scale = 1.0, user-scalable = no">
+
     <title>Esprit</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
     <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
-    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+    <script src="https://jeromeetienne.github.io/AR.js/aframe/build/aframe-ar.js"></script>
     <script src="https://raw.githack.com/donmccurdy/aframe-extras/master/dist/aframe-extras.loaders.min.js"></script>
     <script
         src="https://raw.githack.com/AR-js-org/studio-backend/master/src/modules/marker/tools/gesture-detector.js"></script>
-    <script
+        <script
         src="https://raw.githack.com/AR-js-org/studio-backend/master/src/modules/marker/tools/gesture-handler.js"></script>
+
     <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet" />
     <style>
         html,
@@ -230,6 +234,112 @@
             animation-name: fadeInUp;
             animation-delay: 1s;
         }
+
+        * {
+            user-select: none;
+            transition: 0.5s;
+        }
+
+        html {
+        background-color: #ebebeb;
+        }
+
+        body {
+        overflow: hidden;
+        }
+
+        label {
+        width: 150px;
+        height: 75px;
+        background-color: #d55050;
+        box-shadow: inset 0px 6px 0px 0px rgba(0, 0, 0, 0.2);
+        border-radius: 10px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        z-index: 2;
+        }
+
+        input:checked ~ label {
+        background-color: #50d5a1;
+        }
+
+        input:checked ~ label div.s {
+        margin-left: 74px;
+        }
+
+        label div.s {
+        width: 70px;
+        height: 64px;
+        background-color: #fafafa;
+        border-radius: 8px;
+        position: relative;
+        top: 3px;
+        left: 3px;
+        box-shadow: 0px 5px 0px 0px #d2d2d2;
+        cursor: pointer;
+        }
+
+        label div div.d {
+        width: 7px;
+        height: 7px;
+        background-color: #ebebeb;
+        position: relative;
+        border-radius: 2.5px;
+        box-shadow: inset 0px 1.5px 0px 0px rgba(0, 0, 0, 0.2);
+        position: absolute;
+        }
+
+        label div div.d:nth-child(1) {
+        left: 18px;
+        top: 15px;
+        }
+
+        label div div.d:nth-child(2) {
+        left: 32px;
+        top: 15px;
+        }
+
+        label div div.d:nth-child(3) {
+        left: 46px;
+        top: 15px;
+        }
+
+        label div div.d:nth-child(4) {
+        left: 18px;
+        top: 28px;
+        }
+
+        label div div.d:nth-child(5) {
+        left: 32px;
+        top: 28px;
+        }
+
+        label div div.d:nth-child(6) {
+        left: 46px;
+        top: 28px;
+        }
+
+        label div div.d:nth-child(7) {
+        left: 18px;
+        top: 42px;
+        }
+
+        label div div.d:nth-child(8) {
+        left: 32px;
+        top: 42px;
+        }
+
+        label div div.d:nth-child(9) {
+        left: 46px;
+        top: 42px;
+        }
+
+        input {
+        display: none;
+        appearance: none;
+        }
     </style>
 </head>
 
@@ -242,17 +352,33 @@
         <span>students</span>
     </div>
     <div class="innovation-text">
-        <span class="red"><b>20</b></span>&nbsp; <span>years</span>&nbsp; <span>of</span>&nbsp;
-        <span>innovation</span>&nbsp;<span>🚀</span>
+        <span class="red"><b>10</b></span>&nbsp; <span>years</span>&nbsp; <span>of</span>&nbsp;
+        <image>innovation</br></span>&nbsp;<span><img src="assets/logo.png" alt="Logo" />
+        </span>
     </div>
     
     <div style="z-index: 5; position:absolute; width:100%; height:100%;">
-        <div class="white-bg" style="z-index: 5; width:100%; height:100%; background-color:white;">
+        <div class="white-bg" style="pointer-events: none; z-index: 5; width:100%; height:100%; background-color: white;">
             
         </div>
-        <div style="position:sticky; bottom:0px; height:10%; width:100%; z-index: -1; background-color: white;  text-align: center;">
-            <button style="width:40vw; height:80%; margin-right:7vw;" onclick="location.href='ar_page.html'">AR</button>
-            <button style="width:40vw; height:80%" onclick="location.href='showcase_page.html'">Showcase</button>
+        <div class="buttons-div" style="display:none; white-space: nowrap; position:sticky; bottom:0px; height:100px; width:100%; z-index: -1; background-color: white;  text-align: center;">
+            <input id='checkbox' type='checkbox' checked onchange="checkVisible()">
+            <label for='checkbox'>
+            <div class='s'>
+                <div class='d'></div>
+                <div class='d'></div>
+                <div class='d'></div>
+                <div class='d'></div>
+                <div class='d'></div>
+                <div class='d'></div>
+                <div class='d'></div>
+                <div class='d'></div>
+                <div class='d'></div>
+            </div>
+            </label>
+        </div>
+        <div class="logo-div" style="display:none; position:sticky; bottom:0px; height:10%; width:100%; z-index: -1; background-color: white;  text-align: center;">
+            
         </div>
     </div>
     
@@ -260,13 +386,19 @@
     <a-scene vr-mode-ui="enabled: false;" loading-screen="enabled: false;" renderer="logarithmicDepthBuffer: true; antialias: true; colorManagement: true; sortObjects: true; physicallyCorrectLights: true; maxCanvasWidth: 1920; maxCanvasHeight: 1920;"
         arjs="trackingMethod: best; sourceType: webcam; debugUIEnabled: false;" id="scene" embedded gesture-detector>
         <a-assets>
-            <a-asset-item id="animated-asset" src="assets/asset.glb"></a-asset-item>
+            <a-asset-item id="animated-asset" src="MapBaked.glb"></a-asset-item>
+            <a-asset-item id="animated-asset2" src="assets/Screen.glb"></a-asset-item>
 
             <!--
             Image source: http://www.ghibli.jp/works/kazetachinu/#frame&gid=1&pid=1
             Image author: Studio Ghibli
             -->
-            <img id="kazetachinu" src="https://cdn.aframe.io/examples/ui/kazetachinu.jpg" crossorigin="anonymous"/>
+            <img id="pic1" src="assets/img/pic1.png" crossorigin="anonymous"/>
+            <img id="pic2" src="assets/img/pic2.png" crossorigin="anonymous"/>
+            <img id="pic3" src="assets/img/pic3.png" crossorigin="anonymous"/>
+            <img id="pic4" src="assets/img/pic4.png" crossorigin="anonymous"/>
+            <img id="pic5" src="assets/img/pic5.png" crossorigin="anonymous"/>
+            <img id="pic6" src="assets/img/pic6.jpg" crossorigin="anonymous"/>
             <img id="kazetachinuPoster" src="https://cdn.aframe.io/examples/ui/kazetachinuPoster.jpg" crossorigin="anonymous"/>
             <!--
             Image source: http://www.ghibli.jp/works/ponyo/#frame&gid=1&pid=36
@@ -305,17 +437,126 @@
 
         <a-marker id="animated-marker" type="pattern" preset="custom" url="assets/marker.patt"
             raycaster="objects: .clickable" emitevents="true" cursor="fuse: false; rayOrigin: mouse;" id="markerA">
-            <a-entity unlit id="bowser-model" scale="0.5 0.5 0.5" rotation="0 -90 0" animation-mixer="loop: repeat"
+            <a-entity unlit id="bowser-model" look-at-selected="targetNames: ABCParent, HParent, GParent, EParent, DParent, MParent, IJKParent ; axis: x;" scale="0.5 0.5 0.5" rotation="0 -90 0" animation-mixer="loop: repeat"
                 gltf-model="#animated-asset" class="clickable" gesture-handler ></a-entity>
         </a-marker>
 
+        <a-entity tex-swap unlit id="pics-model" scale="0.5 0.5 0.5" rotation="0 90 0" position="0 0 -2.2" 
+                gltf-model="#animated-asset2" ></a-entity>
+
         <a-entity camera></a-entity>
     </a-scene>
-    
     <script>
+        AFRAME.registerComponent('look-at-selected', {
+          schema: {
+            targetNames: { type: 'array', default: [] },
+            axis: { type: 'string', default: 'x' },
+            additionalRotation: { type: 'vec3', default: { x: 0, y: 0, z: 0 } }
+          },
+      
+          init: function () {
+            this.el.addEventListener('model-loaded', () => {
+              const object3D = this.el.object3D;
+              if (!object3D) { return; }
+      
+              this.targetObjects = this.data.targetNames.map(name => object3D.getObjectByName(name)).filter(obj => obj);
+            });
+          },
+      
+          tick: function () {
+            const camera = this.el.sceneEl.camera;
+            if (!camera || !this.targetObjects) { return; }
+      
+            const axis = this.data.axis.toLowerCase();
+            const upAxis = ['x', 'y', 'z'].find(ax => ax !== axis);
+      
+            this.targetObjects.forEach(target => {
+              if (target) {
+                const worldPosition = new THREE.Vector3();
+                const cameraPosition = new THREE.Vector3();
+                target.getWorldPosition(worldPosition);
+                camera.getWorldPosition(cameraPosition);
+      
+                const direction = new THREE.Vector3();
+                direction.subVectors(cameraPosition, worldPosition).normalize();
+      
+                const rotationQuaternion = new THREE.Quaternion();
+                rotationQuaternion.setFromUnitVectors(new THREE.Vector3().setComponent(axisMap[axis], 1), direction);
+                const upVector = new THREE.Vector3().setComponent(axisMap[upAxis], 1);
+                const adjustedUp = new THREE.Vector3().crossVectors(direction.clone().cross(upVector), direction).normalize();
+      
+                target.quaternion.copy(rotationQuaternion);
+                target.up.copy(adjustedUp);
+                target.lookAt(cameraPosition);
+      
+                
+              }
+            });
+          }
+        });
+      
+        const axisMap = {
+          x: 0,
+          y: 1,
+          z: 2
+        };
+    </script>
+
+    <script>
+        window.picsVisible = true;
+        function checkVisible()
+        {
+            window.picsVisible = document.querySelector('#checkbox').checked;
+        }
+AFRAME.registerComponent('tex-swap',
+    {
+    init: function() {
+      //const {src} = document.getElementById('imageFile')
+      const loader = new THREE.TextureLoader()
+      var self = this;
+      window.setTexture = function(pic) {
+        const model = self.el;
+        console.log("model = ");
+        console.log(model);
+        
+
+
+        let mesh = self.el.getObject3D('mesh')
+        // assuming you want all nodes to have the same material        
+
+            
+        mesh.traverse(function(node) {
+            // change only the mesh nodes
+            if(node.type != "Mesh" || node.name != "Screen") return;
+            console.log(node);
+            console.log("pic = " + pic);
+            node.material = node.material.clone();
+            node.material.emissiveMap = new THREE.TextureLoader().load( pic );
+            // set flipY to false to correclty rotate texture
+            node.material.emissiveMap.flipY = false
+            node.material.needsUpdate = true;
+        })
+        var oldTimeout = window.lastTimeout;
+        model.setAttribute('animation-mixer', {
+            loop: 'repeat',
+        });
+        model.setAttribute("visible", window.picsVisible);
+
+        window.lastTimeout = setTimeout(function()
+        {
+            model.removeAttribute('animation-mixer');
+            model.setAttribute("visible", false);
+        },3900);
+        clearTimeout(oldTimeout);
+
+      }
+    }
+  });
+
         const animatedText = document.querySelector(".animated-text");
         const innovationText = document.querySelector(".innovation-text");
         const whitebg = document.querySelector(".white-bg");
+        const btns = document.querySelector(".buttons-div");
         const buttons = document.querySelectorAll("button");
         const logo = document.querySelector("img");
 
@@ -338,7 +579,7 @@
         setTimeout(() => {
             innovationText.style.display = "none";
             whitebg.style.animation = "fadeOutUp 1s ease-in-out forwards";
-
+            btns.style.display = "inline-block";
             /*buttons.forEach((button) => {
                 button.style.display = "inline";
                 button.style.animation = "fadeIn 1s ease-in-out forwards";
@@ -346,6 +587,20 @@
             //logo.style.display = "inline";
             //logo.style.animation = "fadeIn 1s ease-in-out forwards";
         }, 8000);
+
+        window.picCounter = 1;
+        function swapPic()
+        {
+            
+            window.setTexture(document.getElementById("pic"+window.picCounter).src)
+            window.picCounter++;
+            if(window.picCounter>5)window.picCounter=1;
+        }
+        setTimeout(function()
+        {
+            swapPic();
+            setInterval(swapPic,10000);
+        },5000);
     </script>
 </body>
 
