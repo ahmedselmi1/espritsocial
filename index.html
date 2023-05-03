@@ -347,15 +347,10 @@
 <body style="margin: 0; overflow: hidden; height:100%;">
     <img src="logo.png" style="position:absolute; z-index: 5; height:50px; width:50px; top:20px; left:20px;" alt="Logo" />
 	
-    
+    <div id="joyDiv" style="position:absolute; z-index: 20; height:60px; width:60px; bottom:50%; right:20px;"></div>
+
     
 
-    <div class="controls" style="position:absolute; z-index: 5; height:50px; top:20px; right:20px;">
-                <button id="button">Get camera</button>
-                <select id="select">
-                    <option></option>
-                  </select>
-            </div>
     <div class="animated-text">
         <span>Made</span>&nbsp; <span>with</span>&nbsp; <span class="heart">❤</span>&nbsp; <span>by</span>&nbsp;
         <span><b>ESPRIT</b></span>&nbsp;
@@ -394,8 +389,7 @@
                 <div class='d'></div>
             </div>
             </label>
-            <div id="joyDiv" style="position:absolute; z-index: 20; height:60px; width:60px; bottom:20px; right:20px;"></div>
-
+			
 			
 
         </div>
@@ -540,7 +534,7 @@
 			window.cPos.x = Math.min(3,Math.abs(window.cPos.x))*Math.sign(window.cPos.x);
 			window.cPos.z = Math.min(3,Math.abs(window.cPos.z))*Math.sign(window.cPos.z);
 			var model = document.querySelector("#bowser-model");
-            model.setAttribute("position", {x:window.cPos.x,y:0,z:window.cPos.z});
+            model.setAttribute("position", {x:window.cPos.x,y:0,z:-window.cPos.z});
 		}, 50);
         
         window.picsVisible = true;
