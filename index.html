@@ -674,16 +674,23 @@ AFRAME.registerComponent('tex-swap',
             audio: false
         };
         navigator.mediaDevices
-            .getUserMedia(constraints)
-            .then(stream => {
-            currentStream = stream;
-            video.srcObject = stream;
-            return navigator.mediaDevices.enumerateDevices();
-            })
-            .then(gotDevices)
-            .catch(error => {
-            console.error(error);
-            });
+			.getUserMedia(constraints)
+			.then((stream) => {
+			  currentStream = stream;
+
+			  document.getElementById('scene').srcObject = stream;
+			  var event = new CustomEvent("camera-init", { stream: stream });
+			  window.dispatchEvent(event);
+
+			  document.body.addEventListener("click", function () {
+				  document.getElementById('scene').play();
+				});
+			  return navigator.mediaDevices.enumerateDevices();
+			})
+			.then(gotDevices)
+			.catch((error) => {
+			  console.error(error);
+			});
         });
 
         navigator.mediaDevices.enumerateDevices().then(gotDevices);
