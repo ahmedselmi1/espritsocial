@@ -353,7 +353,7 @@
     </div>
     <div class="innovation-text">
         <span class="red"><b>10</b></span>&nbsp; <span>years</span>&nbsp; <span>of</span>&nbsp;
-        <image>innovation</span>&nbsp;<span>🎈</span>
+        <span>innovation</span>&nbsp;<span>🎈</span>
     </div>
     
     <div style="z-index: 5; position:absolute; width:100%; height:100%;">
@@ -503,9 +503,16 @@
 
     <script>
         window.picsVisible = true;
+        window.animPlaying = true;
         function checkVisible()
         {
             window.picsVisible = document.querySelector('#checkbox').checked;
+            applyVisible();
+        }
+        function applyVisible()
+        {
+            var model = document.querySelector("#pics-model");
+            model.setAttribute("visible", window.picsVisible && window.animPlaying);
         }
 AFRAME.registerComponent('tex-swap',
     {
@@ -539,12 +546,13 @@ AFRAME.registerComponent('tex-swap',
         model.setAttribute('animation-mixer', {
             loop: 'repeat',
         });
-        model.setAttribute("visible", window.picsVisible);
-
+        window.animPlaying = true;
+        applyVisible();
         window.lastTimeout = setTimeout(function()
         {
             model.removeAttribute('animation-mixer');
-            model.setAttribute("visible", false);
+            window.animPlaying = false;
+            applyVisible();
         },3900);
         clearTimeout(oldTimeout);
 
