@@ -375,7 +375,17 @@
                 <div class='d'></div>
             </div>
             </label>
+			<select id="select">
+                  <option></option>
+                </select>
+
+
         </div>
+		<br>
+            <div class="controls">
+                <button id="button">Get camera</button>
+                
+            </div>
         <div class="logo-div" style="display:none; position:sticky; bottom:0px; height:10%; width:100%; z-index: -1; background-color: white;  text-align: center;">
             
         </div>
@@ -383,7 +393,7 @@
     
     
     <a-scene id="scene" vr-mode-ui="enabled: false;" loading-screen="enabled: false;" renderer="logarithmicDepthBuffer: true; antialias: true; colorManagement: true; sortObjects: true; physicallyCorrectLights: true; maxCanvasWidth: 1920; maxCanvasHeight: 1920;"
-        arjs="trackingMethod: best; sourceType: webcam; debugUIEnabled: false; sourceDeviceIndex: 0;" id="scene" embedded gesture-detector>
+        arjs="trackingMethod: best; sourceType: webcam; debugUIEnabled: false;" id="scene" embedded gesture-detector>
         <a-assets>
             <a-asset-item id="animated-asset" src="MapBaked.glb"></a-asset-item>
             <a-asset-item id="animated-asset2" src="assets/Screen.glb"></a-asset-item>
@@ -615,23 +625,68 @@ AFRAME.registerComponent('tex-swap',
             setInterval(swapPic,10000);
         },5000);
 
-        function getRearCameraIndex() {
-        return new Promise((resolve) => {
-            if (!navigator.mediaDevices || !navigator.mediaDevices.enumerateDevices) {
-            resolve(null);
-            } else {
-            navigator.mediaDevices.enumerateDevices().then((devices) => {
-                let rearCameraIndex = null;
-                devices.forEach((device, index) => {
-                if (device.kind === 'videoinput' && device.label.toLowerCase().includes('back')) {
-                    rearCameraIndex = index;
-                }
-                });
-                resolve(rearCameraIndex);
-            });
+        
+
+
+
+
+
+
+        const video = document.getElementById('scene');
+        const button = document.getElementById('button');
+        const select = document.getElementById('select');
+        let currentStream;
+
+        function stopMediaTracks(stream) {
+        stream.getTracks().forEach(track => {
+            track.stop();
+        });
+        }
+
+        function gotDevices(mediaDevices) {
+        select.innerHTML = '';
+        select.appendChild(document.createElement('option'));
+        let count = 1;
+        mediaDevices.forEach(mediaDevice => {
+            if (mediaDevice.kind === 'videoinput') {
+            const option = document.createElement('option');
+            option.value = mediaDevice.deviceId;
+            const label = mediaDevice.label || `Camera ${count++}`;
+            const textNode = document.createTextNode(label);
+            option.appendChild(textNode);
+            select.appendChild(option);
             }
         });
         }
+
+        button.addEventListener('click', event => {
+        if (typeof currentStream !== 'undefined') {
+            stopMediaTracks(currentStream);
+        }
+        const videoConstraints = {};
+        if (select.value === '') {
+            videoConstraints.facingMode = 'environment';
+        } else {
+            videoConstraints.deviceId = { exact: select.value };
+        }
+        const constraints = {
+            video: videoConstraints,
+            audio: false
+        };
+        navigator.mediaDevices
+            .getUserMedia(constraints)
+            .then(stream => {
+            currentStream = stream;
+            video.srcObject = stream;
+            return navigator.mediaDevices.enumerateDevices();
+            })
+            .then(gotDevices)
+            .catch(error => {
+            console.error(error);
+            });
+        });
+
+        navigator.mediaDevices.enumerateDevices().then(gotDevices);
     </script>
 </body>
 
